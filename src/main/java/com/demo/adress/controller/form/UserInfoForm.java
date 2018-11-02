@@ -1,10 +1,6 @@
-package com.demo.adress.domain;
+package com.demo.adress.controller.form;
 
-import java.math.BigDecimal;
-
-public class UserDo {
-	private Integer id;
-	
+public class UserInfoForm {
 	private String userName;
 	
 	private String password;
@@ -12,16 +8,6 @@ public class UserDo {
 	private String telephone;
 	
 	private String mail;
-	
-	private BigDecimal balance;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getUserName() {
 		return userName;
@@ -55,11 +41,4 @@ public class UserDo {
 		this.mail = mail;
 	}
 
-	public BigDecimal getBalance() {
-		return balance;
-	}
-
-	public void setBalance(BigDecimal balance) {
-		this.balance = balance;
-	}
 }

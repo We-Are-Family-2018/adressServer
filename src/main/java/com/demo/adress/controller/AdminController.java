@@ -10,5 +10,5 @@ package com.demo.adress.controller;
  * 
  */
 public class AdminController {
-
+	
 }
