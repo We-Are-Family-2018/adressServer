@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.demo.adress.domain.AddressDo;
 import com.demo.adress.domain.OrderDo;
 import com.demo.adress.domain.ProductDo;
+import com.demo.adress.domain.ShoppingCartDo;
 import com.demo.adress.domain.UserDo;
 
 @Service
@@ -114,10 +115,39 @@ public class ShoppingService {
 	}
 	
 	/**
-	 * 添加一个订单
-	 * @param order
+	 * 向购物车添加一个商品
+	 * @param userId
+	 * @param productId
 	 */
-	public void addOrder(OrderDo order) {
+	public void addShoppingCart(int userId, int productId) {
+		
+	}
+	
+	/**
+	 * 从购物车移除一件商品
+	 * @param userId
+	 * @param productId
+	 */
+	public void removeShoppingCart(int userId, int productId) {
+		
+	}
+	
+	/**
+	 * 查找购物车所有商品
+	 * @param userId
+	 * @return
+	 */
+	public List<ShoppingCartDo> findAllCart(int userId) {
+		return null;
+	}
+	
+	/**
+	 * 添加一个订单
+	 * @param userId
+	 * @param productId
+	 * @param count
+	 */
+	public void addOrder(int userId, int productId, int count) {
 		
 	}
 	
@@ -148,11 +178,11 @@ public class ShoppingService {
 	}
 	
 	/**
-	 * 用户消费
+	 * 订单支付
 	 * @param userId
-	 * @param money
+	 * @param orderId
 	 */
-	public void consume(int userId, BigDecimal money) {
+	public void payOrder(int userId, int orderId) {
 		
 	}
 	

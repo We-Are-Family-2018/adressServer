@@ -1,5 +1,6 @@
 package com.demo.adress.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.demo.adress.controller.form.UserInfoForm;
 import com.demo.adress.domain.AddressDo;
 import com.demo.adress.domain.GlobalResponse;
+import com.demo.adress.domain.OrderDo;
+import com.demo.adress.domain.ProductDo;
+import com.demo.adress.domain.ShoppingCartDo;
 import com.demo.adress.domain.UserDo;
 import com.demo.adress.service.ShoppingService;
 
@@ -99,5 +103,115 @@ public class WebController {
 		return GlobalResponse.ok(null);
 	}
 	
+	@RequestMapping("/search")
+	@ResponseBody
+	public Object search(String searchContent) {
+		List<ProductDo> products = shoppingService.searchProduct(searchContent);
+		
+		return GlobalResponse.ok(products);
+	}
 	
+	@RequestMapping("/searchProductById")
+	@ResponseBody
+	public Object searchProductById(int productId) {
+		ProductDo product = shoppingService.findProduct(productId);
+		
+		return GlobalResponse.ok(product);
+	}
+	
+	@RequestMapping("/seleteAllProduct")
+	@ResponseBody
+	public Object seleteAllProduct() {
+		List<ProductDo> products = shoppingService.findAllProduct();
+		
+		return GlobalResponse.ok(products);
+	}
+	
+	@RequestMapping("/addCard")
+	@ResponseBody
+	public Object addCard(int userId, int productId) {
+		shoppingService.addShoppingCart(userId, productId);
+		
+		return GlobalResponse.ok(null);
+	}
+	
+	@RequestMapping("/myCard")
+	@ResponseBody
+	public Object myCard(int userId) {
+		List<ShoppingCartDo> carts = shoppingService.findAllCart(userId);
+	
+		return GlobalResponse.ok(carts);
+	}
+	
+	@RequestMapping("/deleteCard")
+	@ResponseBody
+	public Object deleteCard(int userId, int productId) {
+		shoppingService.removeShoppingCart(userId, productId);
+		
+		return GlobalResponse.ok(null);
+	}
+	
+	@RequestMapping("/addCollect")
+	@ResponseBody
+	public Object addCollect(int userId, int productId) {
+		shoppingService.addUserCollect(userId, productId);
+		
+		return GlobalResponse.ok(null);
+	}
+	
+	@RequestMapping("/myCollect")
+	@ResponseBody
+	public Object myCollect(int userId) {
+		List<ProductDo> productDos = shoppingService.findAllUserCollect(userId);
+		
+		return GlobalResponse.ok(productDos);
+	}
+	
+	@RequestMapping("/deleteCollect")
+	@ResponseBody
+	public Object deleteCollect(int userId, int productId) {
+		shoppingService.removeUserCollect(userId, productId);
+		
+		return GlobalResponse.ok(null);
+	}
+	
+	@RequestMapping("/addOrder")
+	@ResponseBody
+	public Object addOrder(int userId, int productId, int number) {
+		shoppingService.addOrder(userId, productId, number);
+		
+		return GlobalResponse.ok(null);
+	}
+	
+	@RequestMapping("/deleteOrder")
+	@ResponseBody
+	public Object deleteOrder(int orderId) {
+		shoppingService.removeOrder(orderId);
+		
+		return GlobalResponse.ok(null);
+	}
+	
+	@RequestMapping("/myOrder")
+	@ResponseBody
+	public Object myOrder(int userId) {
+		List<OrderDo> orders = shoppingService.findAllUserOrder(userId);
+		
+		return GlobalResponse.ok(orders);
+	}
+	
+	@RequestMapping("/saveMoney")
+	@ResponseBody
+	public Object saveMoney(int userId, BigDecimal money) {
+		shoppingService.saveMoney(userId, money);
+		
+		return GlobalResponse.ok(null);
+	}
+	
+	@RequestMapping("/pay")
+	@ResponseBody
+	public Object pay(int userId, int orderId) {
+		shoppingService.payOrder(userId, orderId);
+		
+		return GlobalResponse.ok(null);
+	}
 }
