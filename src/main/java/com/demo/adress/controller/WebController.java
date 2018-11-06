@@ -12,7 +12,6 @@ import com.demo.adress.domain.AddressDo;
 import com.demo.adress.domain.GlobalResponse;
 import com.demo.adress.domain.OrderDo;
 import com.demo.adress.domain.ProductDo;
-import com.demo.adress.domain.ShoppingCartDo;
 import com.demo.adress.domain.UserDo;
 import com.demo.adress.service.ShoppingService;
 
@@ -82,9 +81,9 @@ public class WebController {
 	@RequestMapping("/addAddress")
 	@ResponseBody
 	public Object addAddress(int userId, String address) {
-		AddressDo addressDo = shoppingService.addUserAddress(userId, address);
+		shoppingService.addUserAddress(userId, address);
 		
-		return GlobalResponse.ok(addressDo);
+		return GlobalResponse.ok(null);
 	}
 	
 	@RequestMapping("/myAddress")
@@ -138,7 +137,7 @@ public class WebController {
 	@RequestMapping("/myCard")
 	@ResponseBody
 	public Object myCard(int userId) {
-		List<ShoppingCartDo> carts = shoppingService.findAllCart(userId);
+		List<ProductDo> carts = shoppingService.findAllCart(userId);
 	
 		return GlobalResponse.ok(carts);
 	}

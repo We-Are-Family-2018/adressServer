@@ -10,6 +10,8 @@ import com.demo.adress.domain.UserDo;
 public interface UserDao {
 	UserDo selectUser(String userName);
 	
+	UserDo selectUserById(int userId);
+	
 	int insertUser(UserDo user);
 	
 	int updateUser(UserDo user);

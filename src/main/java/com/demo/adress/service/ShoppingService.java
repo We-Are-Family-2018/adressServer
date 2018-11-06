@@ -3,16 +3,27 @@ package com.demo.adress.service;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.demo.adress.dao.ProductDao;
+import com.demo.adress.dao.ShoppingDao;
+import com.demo.adress.dao.UserDao;
 import com.demo.adress.domain.AddressDo;
 import com.demo.adress.domain.OrderDo;
 import com.demo.adress.domain.ProductDo;
-import com.demo.adress.domain.ShoppingCartDo;
 import com.demo.adress.domain.UserDo;
 
 @Service
 public class ShoppingService {
+	@Autowired
+	private ProductDao productDao;
+	
+	@Autowired
+	private UserDao userDao;
+	
+	@Autowired
+	private ShoppingDao shoppingDao;
 	
 	/**
 	 * 用户登录
@@ -21,7 +32,7 @@ public class ShoppingService {
 	 * @return
 	 */
 	public UserDo userLogin(String userName) {
-		return null;
+		return userDao.selectUser(userName);
 	}
 	
 	/**
@@ -31,7 +42,11 @@ public class ShoppingService {
 	 * @return
 	 */
 	public boolean userAuth(String userName, String password) {
-		return false;
+		UserDo userDo = userDao.selectUser(userName);
+		if (userDo == null || !userDo.getPassword().equals(password)) {
+			return false;
+		}
+		return true;
 	}
 	
 	/**
@@ -40,6 +55,10 @@ public class ShoppingService {
 	 * @return
 	 */
 	public boolean existUser(String userName) {
+		UserDo userDo = userDao.selectUser(userName);
+		if (userDo == null) {
+			return false;
+		}
 		return true;
 	}
 	
@@ -49,7 +68,8 @@ public class ShoppingService {
 	 * @return
 	 */
 	public UserDo addUser(UserDo user) {
-		return null;
+		userDao.insertUser(user);
+		return user;
 	}
 	
 	/**
@@ -58,7 +78,8 @@ public class ShoppingService {
 	 * @return
 	 */
 	public UserDo userEdit(UserDo user) {
-		return null;
+		userDao.updateUser(user);
+		return user;
 	}
 	
 	/**
@@ -66,8 +87,8 @@ public class ShoppingService {
 	 * @param userId
 	 * @param address
 	 */
-	public AddressDo addUserAddress(int userId, String address) {
-		return null;
+	public void addUserAddress(int userId, String address) {
+		userDao.insertUserAddress(userId, address);
 	}
 	
 	/**
@@ -76,7 +97,7 @@ public class ShoppingService {
 	 * @return
 	 */
 	public List<AddressDo> findAllUserAddress(int userId) {
-		return null;
+		return userDao.selectUserAddress(userId);
 	}
 	
 	/**
@@ -84,7 +105,7 @@ public class ShoppingService {
 	 * @param addressId
 	 */
 	public void removeUserAddress(int addressId) {
-		
+		userDao.deleteUserAddress(addressId);
 	}
 	
 	/**
@@ -93,7 +114,7 @@ public class ShoppingService {
 	 * @param productId
 	 */
 	public void addUserCollect(int userId, int productId) {
-		
+		userDao.insertUserCollectItem(userId, productId);
 	}
 	
 	/**
@@ -102,7 +123,7 @@ public class ShoppingService {
 	 * @return
 	 */
 	public List<ProductDo> findAllUserCollect(int userId) {
-		return null;
+		return userDao.selectUserCollect(userId);
 	}
 	
 	/**
@@ -111,7 +132,7 @@ public class ShoppingService {
 	 * @param productId
 	 */
 	public void removeUserCollect(int userId, int productId) {
-		
+		userDao.deleteUserCollectItem(userId, productId);
 	}
 	
 	/**
@@ -120,7 +141,7 @@ public class ShoppingService {
 	 * @param productId
 	 */
 	public void addShoppingCart(int userId, int productId) {
-		
+		userDao.insertUserCartItem(userId, productId);
 	}
 	
 	/**
@@ -129,7 +150,7 @@ public class ShoppingService {
 	 * @param productId
 	 */
 	public void removeShoppingCart(int userId, int productId) {
-		
+		userDao.deleteUserCartItem(userId, productId);
 	}
 	
 	/**
@@ -137,8 +158,8 @@ public class ShoppingService {
 	 * @param userId
 	 * @return
 	 */
-	public List<ShoppingCartDo> findAllCart(int userId) {
-		return null;
+	public List<ProductDo> findAllCart(int userId) {
+		return userDao.selectUserCart(userId);
 	}
 	
 	/**
@@ -148,7 +169,14 @@ public class ShoppingService {
 	 * @param count
 	 */
 	public void addOrder(int userId, int productId, int count) {
+		ProductDo productDo = productDao.selectProduct(productId);
 		
+		OrderDo order = new OrderDo();
+		order.setUserId(userId);
+		order.setProductId(productId);
+		order.setCount(count);
+		order.setPrice(productDo.getPrice());
+		shoppingDao.insertOrder(order);
 	}
 	
 	/**
@@ -156,7 +184,7 @@ public class ShoppingService {
 	 * @param orderId
 	 */
 	public void removeOrder(int orderId) {
-		
+		shoppingDao.deleteOrder(orderId);
 	}
 	
 	/**
@@ -165,7 +193,7 @@ public class ShoppingService {
 	 * @return
 	 */
 	public List<OrderDo> findAllUserOrder(int userId) {
-		return null;
+		return shoppingDao.selectUserOrder(userId);
 	}
 	
 	/**
@@ -174,7 +202,10 @@ public class ShoppingService {
 	 * @param money
 	 */
 	public void saveMoney(int userId, BigDecimal money) {
-		
+		UserDo userDo = userDao.selectUserById(userId);
+		BigDecimal balance = userDo.getBalance();
+		userDo.setBalance(balance.add(money));
+		userDao.updateUser(userDo);
 	}
 	
 	/**
@@ -182,8 +213,24 @@ public class ShoppingService {
 	 * @param userId
 	 * @param orderId
 	 */
-	public void payOrder(int userId, int orderId) {
+	public boolean payOrder(int userId, int orderId) {
+		UserDo userDo = userDao.selectUserById(userId);
+		OrderDo orderDo = shoppingDao.selectOrder(userId);
 		
+		BigDecimal total = orderDo.getPrice().multiply(BigDecimal.valueOf(orderDo.getCount()));
+		
+		BigDecimal balance = userDo.getBalance();
+		balance = balance.subtract(total);
+		
+		// 余额为负数
+		if (balance.signum() < 0) {
+			return false;
+		}
+		
+		userDo.setBalance(balance);
+		userDao.updateUser(userDo);
+		
+		return true;
 	}
 	
 	/**
