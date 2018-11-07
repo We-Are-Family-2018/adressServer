@@ -88,7 +88,10 @@ public class ShoppingService {
 	 * @param address
 	 */
 	public void addUserAddress(int userId, String address) {
-		userDao.insertUserAddress(userId, address);
+		AddressDo addressDo = new AddressDo();
+		addressDo.setUid(userId);
+		addressDo.setAddress(address);
+		userDao.insertUserAddress(addressDo);
 	}
 	
 	/**
@@ -239,7 +242,7 @@ public class ShoppingService {
 	 * @return
 	 */
 	public List<ProductDo> searchProduct(String productName) {
-		return null;
+		return productDao.searchProduct(productName);
 	}
 	
 	/**
@@ -248,7 +251,7 @@ public class ShoppingService {
 	 * @return
 	 */
 	public ProductDo findProduct(int productId) {
-		return null;
+		return productDao.selectProduct(productId);
 	}
 	
 	/**
@@ -256,6 +259,6 @@ public class ShoppingService {
 	 * @return
 	 */
 	public List<ProductDo> findAllProduct() {
-		return null;
+		return productDao.selectAllProduct();
 	}
 }
