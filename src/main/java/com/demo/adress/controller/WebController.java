@@ -3,6 +3,9 @@ package com.demo.adress.controller;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +22,7 @@ import com.demo.adress.service.ShoppingService;
 @RequestMapping("/adressingWeb")
 public class WebController {
 	
+	@Autowired
 	private ShoppingService shoppingService;
 	
 	@RequestMapping("/login")
@@ -36,7 +40,7 @@ public class WebController {
 	
 	@RequestMapping("/register")
 	@ResponseBody
-	public Object register(UserInfoForm form) {
+	public Object register(@Valid UserInfoForm form) {
 		boolean res = shoppingService.existUser(form.getUserName());
 		if (res == true) {
 			return GlobalResponse.error("用户名已存在");
@@ -44,7 +48,7 @@ public class WebController {
 		
 		UserDo user = new UserDo();
 		user.setUserName(form.getUserName());
-		user.setPassword(user.getPassword());
+		user.setPassword(form.getPassword());
 		user.setMail(form.getMail());
 		user.setTelephone(form.getTelephone());
 		
@@ -68,10 +72,14 @@ public class WebController {
 	
 	@RequestMapping("/changePassword")
 	@ResponseBody
-	public Object changePassword(int userId, String password) {
+	public Object changePassword(int userId, String password, String newPassword) {
+		if (!shoppingService.userAuth(userId, password)) {
+			return GlobalResponse.error("密码错误");
+		}
+		
 		UserDo user = new UserDo();
 		user.setId(userId);
-		user.setPassword(password);
+		user.setPassword(newPassword);
 		
 		shoppingService.userEdit(user);
 		

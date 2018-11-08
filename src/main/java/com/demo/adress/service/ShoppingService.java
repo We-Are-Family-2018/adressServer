@@ -50,6 +50,20 @@ public class ShoppingService {
 	}
 	
 	/**
+	 * 用户认证
+	 * @param userId
+	 * @param password
+	 * @return
+	 */
+	public boolean userAuth(int userId, String password) {
+		UserDo userDo = userDao.selectUserById(userId);
+		if (userDo == null || !userDo.getPassword().equals(password)) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
 	 * 校验用户是否已存在
 	 * @param userName
 	 * @return

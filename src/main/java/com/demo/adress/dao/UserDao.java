@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.javassist.bytecode.stackmap.Tracer;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
 import com.demo.adress.domain.AddressDo;
@@ -42,7 +42,7 @@ public interface UserDao {
 	UserDo selectUserById(int userId);
 	
 	@Insert({
-		"insert into user (user_name, password, telepohone, mail)"
+		"insert into user (user_name, password, telephone, mail)"
 		,"values (#{userName,jdbcType=VARCHAR}"
 		,",#{password,jdbcType=VARCHAR}"
 		,",#{telephone,jdbcType=VARCHAR}"
@@ -51,13 +51,7 @@ public interface UserDao {
 	@Options(useGeneratedKeys=true, keyColumn="id", keyProperty="id")
 	int insertUser(UserDo user);
 	
-	@Update({
-		"update user set "
-		,"password=#{password,jdbcType=VARCHAR}"
-		,",telephone=#{telephone,jdbcType=VARCHAR}"
-		,",mail=#{mail,jdbcType=VARCHAR}"
-		,"where id=#{id,jdbcType=INTEGER}"
-	})
+	@UpdateProvider(type=UserSqlProvider.class, method="updateUserInfo")
 	int updateUser(UserDo user);
 	
 	@Select({
@@ -78,7 +72,7 @@ public interface UserDao {
 	int insertUserAddress(AddressDo address);
 	
 	@Delete({
-		"delete address where id=#{addressId,jdbcType=INTEGER}"
+		"delete from address where id=#{addressId,jdbcType=INTEGER}"
 	})
 	int deleteUserAddress(int addressId);
 	
@@ -100,12 +94,12 @@ public interface UserDao {
 	List<ProductDo> selectUserCart(int userId);
 	
 	@Insert({
-		"insert into shopping_cart values (#{userId,jdbcType=INTEGER, #{productId,jdbcType=INTEGER}})"
+		"insert into shopping_cart values (#{userId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER})"
 	})
 	int insertUserCartItem(@Param("userId") int userId, @Param("productId") int productId);
 	
 	@Delete({
-		"delete shopping_cart where uid=#{userId,jdbcType=INTEGER} and pid=#{productId,jdbcType=INTEGER}"
+		"delete from shopping_cart where uid=#{userId,jdbcType=INTEGER} and pid=#{productId,jdbcType=INTEGER}"
 	})
 	int deleteUserCartItem(@Param("userId") int userId, @Param("productId") int productId);
 	
@@ -122,12 +116,12 @@ public interface UserDao {
 	List<ProductDo> selectUserCollect(int userId);
 	
 	@Insert({
-		"insert into collect values (#{userId,jdbcType=INTEGER, #{productId,jdbcType=INTEGER}})"
+		"insert into collect values (#{userId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER})"
 	})
 	int insertUserCollectItem(@Param("userId") int userId, @Param("productId") int productId);
 	
 	@Delete({
-		"delete collect where uid=#{userId,jdbcType=INTEGER} and pid=#{productId,jdbcType=INTEGER}"
+		"delete from collect where uid=#{userId,jdbcType=INTEGER} and pid=#{productId,jdbcType=INTEGER}"
 	})
 	int deleteUserCollectItem(@Param("userId") int userId, @Param("productId") int productId);
 }

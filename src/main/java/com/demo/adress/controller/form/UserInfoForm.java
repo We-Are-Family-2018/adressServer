@@ -1,8 +1,12 @@
 package com.demo.adress.controller.form;
 
+import javax.validation.constraints.NotBlank;
+
 public class UserInfoForm {
+	@NotBlank
 	private String userName;
 	
+	@NotBlank
 	private String password;
 	
 	private String telephone;
