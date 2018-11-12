@@ -22,6 +22,8 @@ public class OrderDo {
 	private BigDecimal price;
 	
 	private Integer count;
+	
+	private Integer orderStatus;
 
 	public Integer getId() {
 		return id;
@@ -101,5 +103,13 @@ public class OrderDo {
 
 	public void setCount(Integer count) {
 		this.count = count;
+	}
+
+	public Integer getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(Integer orderStatus) {
+		this.orderStatus = orderStatus;
 	}
 }

@@ -6,6 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.demo.adress.controller.form.PageForm;
+import com.demo.adress.controller.form.SearchOrderForm;
+import com.demo.adress.controller.form.SearchProductForm;
 import com.demo.adress.dao.ProductDao;
 import com.demo.adress.dao.ShoppingDao;
 import com.demo.adress.dao.UserDao;
@@ -13,6 +16,8 @@ import com.demo.adress.domain.AddressDo;
 import com.demo.adress.domain.OrderDo;
 import com.demo.adress.domain.ProductDo;
 import com.demo.adress.domain.UserDo;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Service
 public class ShoppingService {
@@ -232,7 +237,7 @@ public class ShoppingService {
 	 */
 	public boolean payOrder(int userId, int orderId) {
 		UserDo userDo = userDao.selectUserById(userId);
-		OrderDo orderDo = shoppingDao.selectOrder(userId);
+		OrderDo orderDo = shoppingDao.selectOrder(orderId);
 		
 		BigDecimal total = orderDo.getPrice().multiply(BigDecimal.valueOf(orderDo.getCount()));
 		
@@ -243,6 +248,9 @@ public class ShoppingService {
 		if (balance.signum() < 0) {
 			return false;
 		}
+		
+		orderDo.setOrderStatus(1);
+		shoppingDao.updateOrderStatus(orderDo);
 		
 		userDo.setBalance(balance);
 		userDao.updateUser(userDo);
@@ -274,5 +282,94 @@ public class ShoppingService {
 	 */
 	public List<ProductDo> findAllProduct() {
 		return productDao.selectAllProduct();
+	}
+
+	/**
+	 * 添加商品
+	 * 
+	 * @param product
+	 */
+	public ProductDo addProduct(ProductDo product) {
+		productDao.insertProduct(product);
+		return product;
+	}
+
+	/**
+	 * 删除商品
+	 * 
+	 * @param productId
+	 * @return
+	 */
+	public void deleteProduct(int productId) {
+		productDao.deleteProduct(productId);
+	}
+
+	/**
+	 * 编辑商品
+	 * 
+	 * @param product
+	 * @return
+	 */
+	public ProductDo editProduct(ProductDo product) {
+		productDao.updateProduct(product);
+		return product;
+	}
+
+	/**
+	 * 搜索商品
+	 * 
+	 * @param form
+	 * @return
+	 */
+	public PageInfo<ProductDo> searchProduct(SearchProductForm form) {
+		PageHelper.startPage(form.getPage(), form.getLimit());
+		List<ProductDo> productDos = productDao.searchProduct(form.getProductName());
+		PageInfo<ProductDo> pageInfo = new PageInfo<>(productDos);
+		return pageInfo;
+	}
+
+	/**
+	 * 查找所有用户
+	 * 
+	 * @param form
+	 * @return
+	 */
+	public PageInfo<UserDo> findAllUser(PageForm form) {
+		PageHelper.startPage(form.getPage(), form.getLimit());
+		List<UserDo> userDos = userDao.selectAllUser();
+		PageInfo<UserDo> pageInfo = new PageInfo<>(userDos);
+		return pageInfo;
+	}
+
+	/**
+	 * 搜索订单
+	 * 
+	 * @param form
+	 * @return
+	 */
+	public PageInfo<OrderDo> searchOrder(SearchOrderForm form) {
+		PageHelper.startPage(form.getPage(), form.getLimit());
+		List<OrderDo> orderDos = shoppingDao.selectOrderByStatus(form.getOrderStatus());
+		PageInfo<OrderDo> pageInfo = new PageInfo<>(orderDos);
+		return pageInfo;
+	}
+
+	/**
+	 * 更新订单状态
+	 * 
+	 * @param orderStatus
+	 * @param orderId
+	 * @return
+	 */
+	public OrderDo updateOrderStatus(int orderStatus, int orderId) {
+		OrderDo order = shoppingDao.selectOrder(orderId);
+		if (order == null) {
+			return null;
+		}
+		
+		order.setOrderStatus(orderStatus);
+		shoppingDao.updateOrderStatus(order);
+		
+		return order;
 	}
 }

@@ -19,6 +19,17 @@ import com.demo.adress.domain.ProductDo;
 import com.demo.adress.domain.UserDo;
 
 public interface UserDao {
+	@Select({"select * from user"})
+	@Results({
+		@Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true)
+		,@Result(column="user_name", property="userName", jdbcType=JdbcType.VARCHAR)
+		,@Result(column="password", property="password", jdbcType=JdbcType.VARCHAR)
+		,@Result(column="telephone", property="telephone", jdbcType=JdbcType.VARCHAR)
+		,@Result(column="mail", property="mail", jdbcType=JdbcType.VARCHAR)
+		,@Result(column="balance", property="balance", jdbcType=JdbcType.VARCHAR)
+	})
+	List<UserDo> selectAllUser();
+	
 	@Select({"select * from user where user_name=#{userName,jdbcType=VARCHAR}"})
 	@Results({
 		@Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true)

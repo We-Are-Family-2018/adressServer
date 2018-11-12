@@ -1,0 +1,842 @@
+{
+	"info": {
+		"_postman_id": "d4581644-f5e6-4c55-9bd5-23c58069d6e3",
+		"name": "adress-server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "用户注册接口",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userName",
+							"value": "lv2",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "text"
+						},
+						{
+							"key": "telephone",
+							"value": "131",
+							"type": "text"
+						},
+						{
+							"key": "mail",
+							"value": "407@qq.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "用户登录接口",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userName",
+							"value": "lv",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "更新用户信息",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "telephone",
+							"value": "1231231",
+							"type": "text"
+						},
+						{
+							"key": "mail",
+							"value": "11111@qq.com",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/updateUserInfo",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"updateUserInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "修改密码接口",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "456",
+							"type": "text"
+						},
+						{
+							"key": "newPassword",
+							"value": "123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/changePassword",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"changePassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "添加收货地址接口",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/addAddress",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"addAddress"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "查看自己的收货地址",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/myAddress",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"myAddress"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "删除收货地址",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "addressId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/deleteAddress",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"deleteAddress"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "查找商品",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "searchContent",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/search",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "查找商品（根据商品ID）",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "productId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/searchProductById",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"searchProductById"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "查看所有商品",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/seleteAllProduct",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"seleteAllProduct"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "加入购物车",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "productId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/addCard",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"addCard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "我的购物车",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/myCard",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"myCard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "删除购物车商品",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "productId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/deleteCard",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"deleteCard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "添加收藏",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "productId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/addCollect",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"addCollect"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "我的收藏",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/myCollect",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"myCollect"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "删除收藏商品",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "productId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/deleteCollect",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"deleteCollect"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "添加订单",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "productId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "number",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/addOrder",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"addOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "删除订单",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "orderId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/deleteOrder",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"deleteOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "我的订单",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userId",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/myOrder",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"myOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "存钱",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "money",
+							"value": "32.8",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/saveMoney",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"saveMoney"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "支付接口",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "userId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "orderId",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/adressingWeb/pay",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"adressingWeb",
+						"pay"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

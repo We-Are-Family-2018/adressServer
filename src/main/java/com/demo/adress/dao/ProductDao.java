@@ -2,10 +2,14 @@ package com.demo.adress.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.JdbcType;
 
 import com.demo.adress.domain.ProductDo;
@@ -39,4 +43,26 @@ public interface ProductDao {
 	})
 	List<ProductDo> searchProduct(@Param("productName") String productName);
 	
+	@Insert({
+		"insert into product (product_name, price, img)"
+		,"values (#{productName,jdbcType=INTEGER}"
+		,", #{price,jdbcType=DECIMAL}"
+		,", #{img,jdbcType=VARCHAR})"
+	})
+	@Options(useGeneratedKeys=true, keyColumn="id", keyProperty="id")
+	int insertProduct(ProductDo product);
+	
+	@Update({
+		"update product set product_name = #{productName,jdbcType=VARCHAR}"
+		,"price = #{price,jdbcType=DECIMAL}"
+		,"img = #{img,jdbcType=VARCHAR}"
+		,"where id = #{id,jdbcType=INTEGER}"
+	})
+	int updateProduct(ProductDo product);
+	
+	@Delete({
+		"delete product where id=#{productId,jdbcType=INTEGER}"
+	})
+	int deleteProduct(int productId);
+
 }
